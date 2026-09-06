@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WayBack Games Value List</title>
     <style>
-        /* Общий дизайн сайта */
         body {
             font-family: Arial, sans-serif;
             background-color: #121212;
@@ -14,21 +13,7 @@
             padding: 20px;
         }
 
-        /* Заголовок сайта */
-        .site-title {
-            text-align: center;
-            font-size: 2.3rem;
-            font-weight: bold;
-            margin: 15px 0 30px 0;
-        }
-        .site-title .wayback {
-            color: #3498db; /* Голубой цвет */
-        }
-        .site-title .games {
-            color: #95a5a6; /* Серый цвет */
-        }
-
-        /* Кнопка бургер-меню */
+        /* Кнопка меню */
         .menu-btn {
             position: fixed;
             top: 20px;
@@ -43,7 +28,7 @@
             z-index: 1001;
         }
 
-        /* Боковая панель */
+        /* Боковое меню */
         .sidebar {
             height: 100%;
             width: 250px;
@@ -57,7 +42,6 @@
             z-index: 1000;
             box-shadow: 3px 0 10px rgba(0,0,0,0.5);
         }
-
         .sidebar a {
             padding: 15px 20px;
             text-decoration: none;
@@ -65,13 +49,10 @@
             color: #ffffff;
             display: block;
             transition: 0.2s;
+            cursor: pointer;
         }
-
-        .sidebar a:hover {
-            background-color: #3498db;
-        }
-
-        /* Затемнение фона при открытом меню */
+        .sidebar a:hover { background-color: #3498db; }
+        
         .overlay {
             display: none;
             position: fixed;
@@ -83,7 +64,34 @@
             z-index: 999;
         }
 
-        /* Поле поиска */
+        /* Главный экран */
+        .home-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            text-align: center;
+        }
+        .site-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+        .site-title .wayback { color: #3498db; }
+        .site-title .games { color: #95a5a6; }
+        
+        .home-subtitle {
+            color: #888;
+            font-size: 1.2rem;
+        }
+
+        /* Секции с таблицами (по умолчанию скрыты) */
+        .section-content {
+            display: none;
+            margin-top: 20px;
+        }
+
         .search-container {
             text-align: center;
             margin-bottom: 30px;
@@ -98,12 +106,10 @@
             border: 1px solid #3498db;
             border-radius: 5px;
         }
-
-        /* Таблицы */
         h2 {
             border-bottom: 2px solid #3498db;
             padding-bottom: 5px;
-            margin-top: 40px;
+            margin-top: 20px;
         }
         table {
             width: 100%;
@@ -122,301 +128,136 @@
             background-color: #222222;
             color: #3498db;
         }
-        tr:hover {
-            background-color: #252525;
-        }
+        tr:hover { background-color: #252525; }
     </style>
 </head>
 <body>
 
-    <!-- Кнопка меню (три полоски) -->
     <button class="menu-btn" onclick="toggleMenu()">☰</button>
-
-    <!-- Затемнение -->
     <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
 
-    <!-- Выдвижное меню -->
     <div id="mySidebar" class="sidebar">
-        <a href="#huge" onclick="toggleMenu()">Huge Pets</a>
-        <a href="#titanic" onclick="toggleMenu()">Titanic Pets</a>
-        <a href="#gargantuan" onclick="toggleMenu()">Gargantuan Pets</a>
-        <a href="#chest" onclick="toggleMenu()">Chest Egg Pets</a>
-        <a href="#exclusive" onclick="toggleMenu()">Exclusive Eggs</a>
+        <a onclick="showSection('home')">🏠 Главная</a>
+        <a onclick="showSection('huge')">Huge Pets</a>
+        <a onclick="showSection('titanic')">Titanic Pets</a>
+        <a onclick="showSection('gargantuan')">Gargantuan Pets</a>
+        <a onclick="showSection('chest')">Chest Egg Pets</a>
+        <a onclick="showSection('exclusive')">Exclusive Eggs</a>
     </div>
 
-    <!-- Заголовок сайта -->
-    <h1 class="site-title">
-        <span class="wayback">WayBack</span> <span class="games">Games Value List</span>
-    </h1>
+    <div id="home" class="home-screen">
+        <h1 class="site-title">
+            <span class="wayback">WayBack</span> <span class="games">Games</span>
+        </h1>
+        <p class="home-subtitle">Value List — откройте меню слева (☰), чтобы выбрать категорию питомцев</p>
+    </div>
 
-    <!-- Поиск -->
-    <div class="search-container">
+    <div id="searchBox" class="search-container" style="display: none;">
         <input type="text" id="searchInput" placeholder="Поиск питомца..." onkeyup="filterTable()">
     </div>
 
-    <!-- 1. HUGE PETS -->
-    <h2 id="huge">1. Huge Pets</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Pet Name</th>
-                <th>Normal</th>
-                <th>Golden</th>
-                <th>Rainbow</th>
-                <th>Shiny Normal</th>
-                <th>Shiny Golden</th>
-                <th>Shiny Rainbow</th>
-            </tr>
-        </thead>
-        <tbody id="petTableBody">
-            <tr><td>Huge Cupcake</td><td>2.4m-3.2m</td><td>4.2m-5.6m</td><td>6.3m-8.4m</td><td>3.3m-4.4m</td><td>5.7m-7.6m</td><td>9.6m-12.8m</td></tr>
-            <tr><td>Huge Demon</td><td>1.3m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Huge Pixel Otter</td><td>1.3m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Huge Pixel Capybara</td><td>1.3m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Huge Meebo in a spaceship</td><td>1.3m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Huge Hacked Reaper</td><td>2m</td><td>3.2m</td><td>5.4m</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Huge Dominus Frigidus</td><td>1.7m-2.4m</td><td>2.6m-4.3m</td><td>5.2m-7.8m</td><td>3.7m-4.4m</td><td>5.6m-7.3m</td><td>10.2m-12.8m</td></tr>
-            <tr><td>Huge Dominus Astra</td><td>1.99m-2.8m</td><td>3.03m-5.01m</td><td>6.07m-9.09m</td><td>4.32m-5.13m</td><td>6.53m-8.51m</td><td>11.9m-14.93m</td></tr>
-            <tr><td>Huge Samurai Bull</td><td>1.5m-2m</td><td>3.3m-4.4m</td><td>5.4m-7.2m</td><td>2.4m-3.2m</td><td>4.8m-6.4m</td><td>8.7m-11.6m</td></tr>
-            <tr><td>Huge Samurai Dragon</td><td>1.7m-2.2m</td><td>3.6m-4.8m</td><td>5.9m-7.9m</td><td>2.6m-3.5m</td><td>5.3m-7m</td><td>9.6m-12.8m</td></tr>
-            <tr><td>Huge Unicorn</td><td>2.1m-2.8m</td><td>3.9m-5.2m</td><td>6m-8m</td><td>3m-4m</td><td>5.4m-7.2m</td><td>9.3m-12.4m</td></tr>
-            <tr><td>Huge Vampire Agony</td><td>1.5m-2m</td><td>3.3m-4.4m</td><td>5.4m-7.2m</td><td>2.4m-3.2m</td><td>4.8m-6.4m</td><td>8.7m-11.6m</td></tr>
-            <tr><td>Huge Phantom Wolf</td><td>1.7m-2.2m</td><td>3.6m-4.8m</td><td>5.9m-7.9m</td><td>2.6m-3.5m</td><td>5.3m-7m</td><td>9.6m-12.8m</td></tr>
-            <tr><td>Huge Hellhound</td><td>1.5m-2m</td><td>3.3m-4.4m</td><td>5.4m-7.2m</td><td>2.4m-3.2m</td><td>4.8m-6.4m</td><td>8.7m-11.6m</td></tr>
-            <tr><td>Huge Hell Spider</td><td>2.1m-2.8m</td><td>3.9m-5.2m</td><td>6m-8m</td><td>3m-4m</td><td>5.4m-7.2m</td><td>9.3m-12.4m</td></tr>
-            <tr><td>Huge Angel Dragon</td><td>1.5m-2m</td><td>3.3m-4.4m</td><td>5.4m-7.2m</td><td>2.4m-3.2m</td><td>4.8m-6.4m</td><td>8.7m-11.6m</td></tr>
-            <tr><td>Huge Empyrean Stallion</td><td>1.5m-2m</td><td>3.3m-4.4m</td><td>5.4m-7.2m</td><td>2.4m-3.2m</td><td>4.8m-6.4m</td><td>8.7m-11.6m</td></tr>
-            <tr><td>Huge Cyborg Dog</td><td>1.4m-2.1m</td><td>3.1m-4m</td><td>5.1m-7m</td><td>2.7m-3.7m</td><td>5.2m-7.2m</td><td>9.4m-13.2m</td></tr>
-            <tr><td>Huge Tech Camel</td><td>2m-2.5m</td><td>4.1m-5.5m</td><td>6.8m-9.1m</td><td>3m-4m</td><td>6.1m-8.1m</td><td>11m-14.7m</td></tr>
-            <tr><td>Huge Metal Skull</td><td>2m-2.5m</td><td>4.1m-5.5m</td><td>6.8m-9.1m</td><td>3m-4m</td><td>6.1m-8.1m</td><td>11m-14.7m</td></tr>
-            <tr><td>Huge Robot</td><td>1.4m-2.1m</td><td>3.1m-4m</td><td>5.1m-7m</td><td>2.7m-3.7m</td><td>5.2m-7.2m</td><td>9.4m-13.2m</td></tr>
-            <tr><td>Huge Cyberpunk Axolotl</td><td>2.11m-2.82m</td><td>3.7m-4.93m</td><td>5.54m-7.39m</td><td>2.9m-3.87m</td><td>5.02m-6.69m</td><td>8.45m-11.26m</td></tr>
-            <tr><td>Huge Steampunk Crocodile</td><td>1.4m-2.1m</td><td>3.1m-4m</td><td>5.1m-7m</td><td>2.7m-3.7m</td><td>5.2m-7.2m</td><td>9.4m-13.2m</td></tr>
-            <tr><td>Huge Reversed Dog</td><td>1.4m-2.1m</td><td>3.1m-4m</td><td>5.1m-7m</td><td>2.7m-3.7m</td><td>5.2m-7.2m</td><td>9.4m-13.2m</td></tr>
-            <tr><td>Huge Blurred Monkey</td><td>2m-2.5m</td><td>4.1m-5.5m</td><td>6.8m-9.1m</td><td>3m-4m</td><td>6.1m-8.1m</td><td>11m-14.7m</td></tr>
-            <tr><td>Huge Abyss Dolphin</td><td>2m-2.5m</td><td>4.1m-5.5m</td><td>6.8m-9.1m</td><td>3m-4m</td><td>6.1m-8.1m</td><td>11m-14.7m</td></tr>
-            <tr><td>Huge Nuclear Dragon</td><td>1.4m-2.1m</td><td>3.1m-4m</td><td>5.1m-7m</td><td>2.7m-3.7m</td><td>5.2m-7.2m</td><td>9.4m-13.2m</td></tr>
-            <tr><td>Huge Alien</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Huge Glitched Cat</td><td>1.4m-2.1m</td><td>3.1m-4m</td><td>5.1m-7m</td><td>2.7m-3.7m</td><td>5.2m-7.2m</td><td>9.4m-13.2m</td></tr>
-            <tr><td>Huge Hacked Cat</td><td>1.9m-2.4m</td><td>3.9m-5.2m</td><td>6.5m-8.6m</td><td>2.9m-3.8m</td><td>5.8m-7.7m</td><td>10.5m-14m</td></tr>
-            <tr><td>Huge Gamemaster Cat</td><td>1.9m-2.4m</td><td>3.9m-5.2m</td><td>6.5m-8.6m</td><td>2.9m-3.8m</td><td>5.8m-7.7m</td><td>10.5m-14m</td></tr>
-            <tr><td>Huge 1x1x1x1</td><td>1.9m-2.4m</td><td>3.9m-5.2m</td><td>6.5m-8.6m</td><td>2.9m-3.8m</td><td>5.8m-7.7m</td><td>10.5m-14m</td></tr>
-            <tr><td>Huge 404 Demon</td><td>2.1m-2.6m</td><td>4.3m-5.8m</td><td>7.1m-9.6m</td><td>3.2m-4.2m</td><td>6.4m-8.5m</td><td>11.6m-15.4m</td></tr>
-            <tr><td>Huge Lumi Axolotl</td><td>1.78m-2.52m</td><td>2.73m-4.51m</td><td>5.46m-8.19m</td><td>3.89m-4.62m</td><td>5.88m-7.67m</td><td>10.71m-13.44m</td></tr>
-            <tr><td>Huge Fancy Axolotl</td><td>1.56m-2.21m</td><td>2.39m-3.96m</td><td>4.78m-7.18m</td><td>3.4m-4.05m</td><td>5.15m-6.72m</td><td>9.38m-11.78m</td></tr>
-            <tr><td>Huge Pterodactyl</td><td>1.2m-1.6m</td><td>3m-4m</td><td>5.1m-6.8m</td><td>2.1m-2.8m</td><td>4.5m-6m</td><td>8.4m-11.2m</td></tr>
-            <tr><td>Huge King Cobra</td><td>1.5m-2m</td><td>3.3m-4.4m</td><td>5.4m-7.2m</td><td>2.4m-3.2m</td><td>4.8m-6.4m</td><td>8.7m-11.6m</td></tr>
-            <tr><td>Huge Orca</td><td>1.5m-2m</td><td>3.3m-4.4m</td><td>5.4m-7.2m</td><td>2.4m-3.2m</td><td>4.8m-6.4m</td><td>8.7m-11.6m</td></tr>
-            <tr><td>Huge Chameleon</td><td>2.1m-2.8m</td><td>3.9m-5.2m</td><td>6m-8m</td><td>3m-4m</td><td>5.4m-7.2m</td><td>9.3m-12.4m</td></tr>
-            <tr><td>Huge Angelus</td><td>4.5m-6m</td><td>7.5m-10m</td><td>11m-14.6m</td><td>6m-8m</td><td>10m-13.3m</td><td>16.5m-22m</td></tr>
-            <tr><td>Huge Goblin</td><td>1.2m-1.6m</td><td>3m-4m</td><td>5.1m-6.8m</td><td>2.1m-2.8m</td><td>4.5m-6m</td><td>8.4m-11.2m</td></tr>
-            <tr><td>Huge Rainbow Slime</td><td>1.8m-2.4m</td><td>3.6m-4.8m</td><td>5.7m-7.6m</td><td>2.7m-3.6m</td><td>5.1m-6.8m</td><td>9m-12m</td></tr>
-            <tr><td>Huge Gecko</td><td>2.1m-2.8m</td><td>3.9m-5.2m</td><td>6m-8m</td><td>3m-4m</td><td>5.4m-7.2m</td><td>9.3m-12.4m</td></tr>
-            <tr><td>Huge Kraken</td><td>4.8m-6.4m</td><td>8m-10.7m</td><td>11.5m-15.4m</td><td>6.4m-8.5m</td><td>10.5m-14m</td><td>17.5m-23.5m</td></tr>
-            <tr><td>Huge Blue Lucky Block</td><td>1.7m-2.3m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Huge Vapor Cat</td><td>3.2m-4.3m</td><td>5.3m-7.1m</td><td>7.4m-10m</td><td>4.2m-5.6m</td><td>6.8m-9.2m</td><td>11m-14.9m</td></tr>
-            <tr><td>Huge Vapor Wolf</td><td>3.9m-4.8m</td><td>6.2m-7.7m</td><td>9.0m-11.1m</td><td>5.1m-6.2m</td><td>8.2m-10.1m</td><td>13.3m-16.4m</td></tr>
-            <tr><td>Huge Floppa</td><td>2.3m-3.1m</td><td>N/A</td><td>5.3m-7.1m</td><td>3.0m-4.0m</td><td>N/A</td><td>7.8m-10.5m</td></tr>
-            <tr><td>Huge Sleipnir</td><td>2.3m-3.1m</td><td>N/A</td><td>5.3m-7.1m</td><td>3.0m-4.0m</td><td>N/A</td><td>7.8m-10.5m</td></tr>
-            <tr><td>Huge Snuggle Beast</td><td>2.1m-2.7m</td><td>N/A</td><td>5m-6.1m</td><td>2.8m-3.4m</td><td>N/A</td><td>7.3m-9m</td></tr>
-            <tr><td>Huge Claw Beast</td><td>2.2m-2.8m</td><td>N/A</td><td>5.2m-6.4m</td><td>2.9m-3.6m</td><td>N/A</td><td>7.7m-9.5m</td></tr>
-            <tr><td>Huge Red Blocky</td><td>2.1m-2.8m</td><td>3.9m-5.2m</td><td>6m-8m</td><td>3m-4m</td><td>5.4m-7.2m</td><td>9.3m-12.4m</td></tr>
-            <tr><td>Huge Green Blocky</td><td>2.1m-2.8m</td><td>3.9m-5.2m</td><td>6m-8m</td><td>3m-4m</td><td>5.4m-7.2m</td><td>9.3m-12.4m</td></tr>
-            <tr><td>Huge Pog Cat</td><td>10m-12.5m</td><td>13m-15m</td><td>18m-20m</td><td>13.5m-15m</td><td>16m-18m</td><td>20m-23m</td></tr>
-            <tr><td>Huge Pog Dog</td><td>10m-12.5m</td><td>13m-15m</td><td>18m-20m</td><td>13.5m-15m</td><td>16m-18m</td><td>20m-23m</td></tr>
-            <tr><td>Huge Pog Immortuus</td><td>12m-13.5m</td><td>14m-17m</td><td>19.5m-22m</td><td>15m-18m</td><td>18.5m-21m</td><td>25m-27m</td></tr>
-            <tr><td>Huge Pumpkin Cat</td><td>2.8m-3.6m</td><td>4.5m-5.8m</td><td>6.5m-8.3m</td><td>3.7m-4.7m</td><td>5.9m-7.6m</td><td>9.5m-12.2m</td></tr>
-            <tr><td>Huge Reaper</td><td>3.2m-4.2m</td><td>5.1m-6.6m</td><td>7.4m-9.6m</td><td>4.2m-5.4m</td><td>6.7m-8.7m</td><td>10.9m-14.2m</td></tr>
-            <tr><td>Huge Vampire Bat</td><td>3.4m-4.4m</td><td>5.4m-7m</td><td>7.8m-10.2m</td><td>4.4m-5.8m</td><td>7m-9.3m</td><td>11.4m-15m</td></tr>
-            <tr><td>Huge Ghoul Horse</td><td>3.6m-4.6m</td><td>8.3m-10.6m</td><td>5.8m-7.4m</td><td>4.7m-6m</td><td>7.6m-9.8m</td><td>12.2m-15.8m</td></tr>
-            <tr><td>Huge Old Wizard Cat</td><td>6.4m-8.3m</td><td>9.2m-12m</td><td>4m-5.2m</td><td>5.2m-6.8m</td><td>8.4m-11m</td><td>13.6m-17.7m</td></tr>
-            <tr><td>Huge Old Wizard Dragon</td><td>4m-5.6m</td><td>7m-9m</td><td>10.2m-12.9m</td><td>5.8m-7.3m</td><td>9.3m-11.8m</td><td>15m-19m</td></tr>
-            <tr><td>Huge Scary Corgi</td><td>2.2m-2.9m</td><td>N/A</td><td>5m-6.6m</td><td>2.8m-3.8m</td><td>N/A</td><td>7.4m-9.9m</td></tr>
-            <tr><td>Huge Scary Cat</td><td>3.1m-3.8m</td><td>N/A</td><td>7.2m-8.9m</td><td>4.1m-5m</td><td>N/A</td><td>10.6m-13.1m</td></tr>
-            <tr><td>Huge Chest Mimic</td><td>3.78m-4.95m</td><td>6.21m-8.28m</td><td>9.18m-12.15m</td><td>4.95m-6.66m</td><td>8.28m-11.07m</td><td>13.5m-18m</td></tr>
-            <tr><td>Huge Sapphire Phoenix</td><td>3.78m-4.95m</td><td>6.21m-8.28m</td><td>9.18m-12.15m</td><td>4.95m-6.66m</td><td>8.28m-11.07m</td><td>13.5m-18m</td></tr>
-            <tr><td>Huge Dragon</td><td>4.2m-5.5m</td><td>6.9m-9.2m</td><td>10.2m-12.5m</td><td>5.5m-7.4m</td><td>9.2m-12.3m</td><td>15m-20m</td></tr>
-            <tr><td>Huge Dog</td><td>4.2m-5.5m</td><td>6.9m-9.2m</td><td>10.2m-12.5m</td><td>5.5m-7.4m</td><td>9.2m-12.3m</td><td>15m-20m</td></tr>
-            <tr><td>Huge Cyborg Cat</td><td>1.3m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Huge Mammoth Elephant</td><td>2.52m-3.6m</td><td>3.36m-4.92m</td><td>5.16m-8.16m</td><td>3.84m-5.76m</td><td>7.92m-11.75m</td><td>11.78m-17.87m</td></tr>
-            <tr><td>Huge Triumphant Eagle</td><td>2.65m-3.78m</td><td>3.53m-5.16m</td><td>5.41m-8.57m</td><td>4.03m-6.05m</td><td>8.32m-12.34m</td><td>12.37m-18.76m</td></tr>
-            <tr><td>Huge Druid Owl</td><td>2.9m-4.14m</td><td>3.86m-5.65m</td><td>5.93m-9.38m</td><td>4.42m-6.62m</td><td>9.11m-13.51m</td><td>13.55m-20.54m</td></tr>
-            <tr><td>Huge Diamond Cat</td><td>4.5m-6m</td><td>7.5m-10m</td><td>11m-14.6m</td><td>6m-8m</td><td>10m-13.3m</td><td>16.5m-22m</td></tr>
-            <tr><td>Huge Pixel Dragon</td><td>2.1m-2.8m</td><td>3.9m-5.2m</td><td>6m-8m</td><td>3m-4m</td><td>5.4m-7.2m</td><td>9.3m-12.4m</td></tr>
-            <tr><td>Huge Pixel Shark</td><td>2.1m-2.8m</td><td>3.9m-5.2m</td><td>6m-8m</td><td>3m-4m</td><td>5.4m-7.2m</td><td>9.3m-12.4m</td></tr>
-            <tr><td>Huge Pixel Wolf</td><td>2.1m-2.8m</td><td>3.9m-5.2m</td><td>6m-8m</td><td>3m-4m</td><td>5.4m-7.2m</td><td>9.3m-12.4m</td></tr>
-            <tr><td>Huge Pixel Cat</td><td>2.1m-2.8m</td><td>3.9m-5.2m</td><td>6m-8m</td><td>3m-4m</td><td>5.4m-7.2m</td><td>9.3m-12.4m</td></tr>
-            <tr><td>Huge Chroma Balloon Axolotl</td><td>3.6m-4.5m</td><td>N/A</td><td>8.5m-10.3m</td><td>4.7m-5.8m</td><td>N/A</td><td>12.4m-15.3m</td></tr>
-            <tr><td>Huge Chroma Balloon Dragon</td><td>3.6m-4.5m</td><td>N/A</td><td>8.5m-10.3m</td><td>4.7m-5.8m</td><td>N/A</td><td>12.4m-15.3m</td></tr>
-            <tr><td>Huge Devil Tasmanian</td><td>1.5m-2m</td><td>3.3m-4.4m</td><td>5.4m-7.2m</td><td>2.4m-3.2m</td><td>4.8m-6.4m</td><td>8.7m-11.6m</td></tr>
-            <tr><td>Huge Devil Agony</td><td>1.5m-2m</td><td>3.3m-4.4m</td><td>5.4m-7.2m</td><td>2.4m-3.2m</td><td>4.8m-6.4m</td><td>8.7m-11.6m</td></tr>
-            <tr><td>Huge Evolved Pterodactyl</td><td>2m-2.7m</td><td>5.1m-6.8m</td><td>8.7m-11.6m</td><td>3.6m-4.8m</td><td>7.6m-10.2m</td><td>14.3m-19m</td></tr>
-            <tr><td>Huge Evolved King Cobra</td><td>2.5m-3.4m</td><td>5.6m-7.5m</td><td>9.2m-12.2m</td><td>4.1m-5.4m</td><td>8.2m-10.9m</td><td>14.8m-19.7m</td></tr>
-            <tr><td>Huge Evolved Cupcake</td><td>4.1m-5.4m</td><td>7.1m-9.5m</td><td>10.7m-14.3m</td><td>5.6m-7.5m</td><td>9.7m-12.9m</td><td>16.3m-21.8m</td></tr>
-            <tr><td>Huge Angel Cow</td><td>1.5m-2m</td><td>3.3m-4.4m</td><td>5.4m-7.2m</td><td>2.4m-3.2m</td><td>4.8m-6.4m</td><td>8.7m-11.6m</td></tr>
-            <tr><td>Huge Inkwell Wisp</td><td>1.8m-2.5m</td><td>2.8m-4.5m</td><td>5.5m-8m</td><td>3.5m-4.5m</td><td>5.5m-7.5m</td><td>10m-13.5m</td></tr>
-            <tr><td>Huge Domortuus Astra</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Huge Googly Corgi</td><td>2.21m-2.84m</td><td>N/A</td><td>5.25m-6.41m</td><td>2.94m-3.57m</td><td>N/A</td><td>7.67m-9.45m</td></tr>
-            <tr><td>Huge Googly Shark</td><td>2.31m-2.94m</td><td>N/A</td><td>5.46m-6.72m</td><td>3.05m-3.78m</td><td>N/A</td><td>8.09m-9.98m</td></tr>
-            <tr><td>Huge Red Balloon Cat / Huge Green Balloon Cat</td><td>5.4m-7.4m</td><td>9.2m-12.8m</td><td>14.2m-19.2m</td><td>7.0m-9.6m</td><td>12.2m-16.8m</td><td>20.5m-28m</td></tr>
-            <tr><td>Huge Clown Cat</td><td>1.5m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Huge Black Balloon Cat</td><td>1.7m</td><td>N/A</td><td>13.4m</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Huge Fluffy Cat / Huge Hoverboard Cat</td><td>3.42m-4.28m</td><td>N/A</td><td>8.08m-9.79m</td><td>5.47m-7.51m</td><td>N/A</td><td>12.78m-15.54m</td></tr>
-            <tr><td>Huge Elf Cat</td><td>500k</td><td>1m</td><td>2.5m</td><td>1.25m</td><td>2.5m</td><td>6m</td></tr>
-            <tr><td>Huge Elf Dog</td><td>500k</td><td>1m</td><td>2.5m</td><td>1.25m</td><td>2.5m</td><td>6m</td></tr>
-            <tr><td>Huge Scary Cat</td><td>500k</td><td>1m</td><td>2.5m</td><td>1.25m</td><td>2.5m</td><td>6m</td></tr>
-            <tr><td>Huge Scary Dog</td><td>500k</td><td>1m</td><td>2.5m</td><td>1.25m</td><td>2.5m</td><td>6m</td></tr>
-            <tr><td>Huge Festive Seal</td><td>10m-12.5m</td><td>13m-15m</td><td>18m-20m</td><td>13.5m-15m</td><td>16m-18m</td><td>20m-23m</td></tr>
-            <tr><td>Huge Jolly Penguin</td><td>10m-12.5m</td><td>13m-15m</td><td>18m-20m</td><td>13.5m-15m</td><td>16m-18m</td><td>20m-23m</td></tr>
-            <tr><td>Huge Gingerbread Cat</td><td>10m-12.5m</td><td>13m-15m</td><td>18m-20m</td><td>13.5m-15m</td><td>16m-18m</td><td>20m-23m</td></tr>
-            <tr><td>Huge Reindeer</td><td>10m-12.5m</td><td>13m-15m</td><td>18m-20m</td><td>13.5m-15m</td><td>16m-18m</td><td>20m-23m</td></tr>
-            <tr><td>Huge Festive Elf</td><td>10m-12.5m</td><td>13m-15m</td><td>18m-20m</td><td>13.5m-15m</td><td>16m-18m</td><td>20m-23m</td></tr>
-            <tr><td>Huge Evil Snowman</td><td>10m-12.5m</td><td>13m-15m</td><td>18m-20m</td><td>13.5m-15m</td><td>16m-18m</td><td>20m-23m</td></tr>
-            <tr><td>Huge Sleigh Cat</td><td>10m-12.5m</td><td>13m-15m</td><td>18m-20m</td><td>13.5m-15m</td><td>16m-18m</td><td>20m-23m</td></tr>
-            <tr><td>Huge Snowflake Pegasus</td><td>12m-13.5m</td><td>14m-17m</td><td>19.5m-22m</td><td>15m-18m</td><td>18.5m-21m</td><td>25m-27m</td></tr>
-        </tbody>
-    </table>
+    <div id="huge" class="section-content">
+        <h2>1. Huge Pets</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pet Name</th>
+                    <th>Normal</th>
+                    <th>Golden</th>
+                    <th>Rainbow</th>
+                    <th>Shiny Normal</th>
+                    <th>Shiny Golden</th>
+                    <th>Shiny Rainbow</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Huge Cupcake</td><td>2.4m-3.2m</td><td>4.2m-5.6m</td><td>6.3m-8.4m</td><td>3.3m-4.4m</td><td>5.7m-7.6m</td><td>9.6m-12.8m</td></tr>
+                <tr><td>Huge Demon</td><td>1.3m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
+                <tr><td>Huge Pixel Otter</td><td>1.3m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
+                <tr><td>Huge Pixel Capybara</td><td>1.3m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
+                <tr><td>Huge Meebo in a spaceship</td><td>1.3m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
+            </tbody>
+        </table>
+    </div>
 
-    <!-- 2. TITANIC PETS -->
-    <h2 id="titanic">2. Titanic Pets</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Pet Name</th>
-                <th>Normal</th>
-                <th>Golden</th>
-                <th>Rainbow</th>
-                <th>Shiny Normal</th>
-                <th>Shiny Golden</th>
-                <th>Shiny Rainbow</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr><td>Titanic Cupcake</td><td>42m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Titanic Blue Lucky Block</td><td>29m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Titanic Vapor Dragon</td><td>40m-55m</td><td>N/A</td><td>92m-127m</td><td>52m-72m</td><td>N/A</td><td>136m-187m</td></tr>
-            <tr><td>Titanic Floppa</td><td>20m-25m</td><td>N/A</td><td>55m-70m</td><td>42.5m-48m</td><td>N/A</td><td>100m-120m</td></tr>
-            <tr><td>Titanic Warrior Beast</td><td>32m-38m</td><td>N/A</td><td>88m-105m</td><td>43m-51m</td><td>N/A</td><td>182m-217m</td></tr>
-            <tr><td>Titanic White Blocky</td><td>20m-25m</td><td>N/A</td><td>55m-70m</td><td>42.5m-48m</td><td>N/A</td><td>100m-120m</td></tr>
-            <tr><td>Titanic Pog Immortuus</td><td>112.5m-130m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Titanic Pumpkin Cat</td><td>30m-36m</td><td>73m-87m</td><td>83m-99m</td><td>41m-49m</td><td>110m-131m</td><td>171m-205m</td></tr>
-            <tr><td>Titanic Pumpkin Dog</td><td>31m-37m</td><td>75m-90m</td><td>85m-102m</td><td>42m-50m</td><td>113m-135m</td><td>177m-211m</td></tr>
-            <tr><td>Titanic Owl</td><td>33m-39m</td><td>80m-95m</td><td>91m-107m</td><td>45m-53m</td><td>120m-142m</td><td>188m-222m</td></tr>
-            <tr><td>Titanic Old Wizard Owl</td><td>34m-40m</td><td>83m-97m</td><td>94m-110m</td><td>46m-54m</td><td>124m-146m</td><td>194m-228m</td></tr>
-            <tr><td>Titanic Scary Corgi</td><td>36m-43m</td><td>N/A</td><td>99m-118m</td><td>49m-58m</td><td>N/A</td><td>205m-245m</td></tr>
-            <tr><td>Titanic Cat</td><td>400m-500m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Titanic Caveman Bear</td><td>37m-44m</td><td>90m-107m</td><td>102m-121m</td><td>50m-59m</td><td>135m-161m</td><td>211m-251m</td></tr>
-            <tr><td>Titanic Crusader Dragon</td><td>38m-45m</td><td>92m-109m</td><td>110m-124m</td><td>51m-61m</td><td>139m-164m</td><td>217m-257m</td></tr>
-            <tr><td>Titanic Dominus Astra</td><td>35m-42m</td><td>85m-102m</td><td>95m-120m</td><td>45m-60m</td><td>130m-150m</td><td>195m-245m</td></tr>
-            <tr><td>Titanic Samurai Dragon</td><td>28m-33m</td><td>68m-80m</td><td>77m-91m</td><td>38m-45m</td><td>102m-120m</td><td>160m-188m</td></tr>
-            <tr><td>Titanic Samurai Bull</td><td>39.2m-46.2m</td><td>95.2m-112m</td><td>107.8m-127.4m</td><td>53.2m-63m</td><td>142.8m-168m</td><td>224m-263.2m</td></tr>
-            <tr><td>Titanic Phantom Wolf</td><td>31.2m-36.8m</td><td>76m-89.6m</td><td>85.6m-101.6m</td><td>42.4m-49.6m</td><td>113.6m-134.4m</td><td>177.6m-209.6m</td></tr>
-            <tr><td>Titanic Wyvern Of Hades</td><td>32.8m-38.4m</td><td>80m-93.6m</td><td>90.4m-105.6m</td><td>44m-52m</td><td>120m-140m</td><td>187.2m-219.2m</td></tr>
-            <tr><td>Titanic Empyrean Lion</td><td>33.6m-39.2m</td><td>81.6m-95.2m</td><td>92.8m-108m</td><td>45.6m-52.8m</td><td>122.4m-143.2m</td><td>191.2m-223.2m</td></tr>
-            <tr><td>Titanic Blimp Dragon</td><td>34.4m-40m</td><td>83.2m-97.6m</td><td>94.4m-110.4m</td><td>46.4m-54.4m</td><td>125.6m-146.4m</td><td>196m-228m</td></tr>
-            <tr><td>Titanic Red Fluffy</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Titanic Glitched Immortuus</td><td>35.2m-40.8m</td><td>85.6m-99.2m</td><td>96.8m-112m</td><td>47.2m-55.2m</td><td>128.8m-148.8m</td><td>200.8m-232.8m</td></tr>
-            <tr><td>Titanic Gamemaster Cat</td><td>36m-41.6m</td><td>87.2m-100.8m</td><td>99.2m-114.4m</td><td>48.8m-56m</td><td>131.2m-152m</td><td>205.6m-236.8m</td></tr>
-            <tr><td>Titanic Hydra Axolotl</td><td>32m-37.6m</td><td>77.6m-91.2m</td><td>88m-103.2m</td><td>43.2m-50.4m</td><td>116.8m-137.6m</td><td>182.4m-214.4m</td></tr>
-            <tr><td>Titanic Angelus</td><td>36.8m-42.4m</td><td>89.6m-103.2m</td><td>101.6m-116.8m</td><td>49.6m-57.6m</td><td>134.4m-154.4m</td><td>209.6m-241.6m</td></tr>
-            <tr><td>Titanic Diamond Dog</td><td>45m-55m</td><td>110m-130m</td><td>125m-150m</td><td>60m-75m</td><td>165m-195m</td><td>255m-310m</td></tr>
-            <tr><td>Titanic Chroma Balloon Monkey</td><td>35.2m-41.8m</td><td>N/A</td><td>96.8m-115.5m</td><td>47.3m-56.1m</td><td>N/A</td><td>200.2m-238.7m</td></tr>
-            <tr><td>Titanic Pixel Agony</td><td>32m-38.4m</td><td>76m-92m</td><td>88m-104m</td><td>43.2m-52m</td><td>116m-140m</td><td>180m-216m</td></tr>
-            <tr><td>Titanic Googly Blobfish</td><td>33.6m-39.9m</td><td>N/A</td><td>92.4m-110.3m</td><td>45.2m-53.6m</td><td>N/A</td><td>191.1m-227.9m</td></tr>
-            <tr><td>Titanic Hoverboard Cat</td><td>61m-76m</td><td>123m-158m</td><td>163m-208m</td><td>81m-103m</td><td>183m-235m</td><td>288m-365m</td></tr>
-            <tr><td>Titanic Calico Cat</td><td>38m-52.3m</td><td>N/A</td><td>87.4m-120.7m</td><td>49.4m-68.4m</td><td>N/A</td><td>159.2m-177.7m</td></tr>            
-            <tr><td>Titanic Elf Cat</td><td>36m-43m</td><td>N/A</td><td>99m-118m</td><td>49m-58m</td><td>N/A</td><td>205m-245m</td></tr>
-            <tr><td>Titanic Nutcracker Cat</td><td>112.5m-130m</td><td>223.4m-276m</td><td>309.5m-357.5m</td><td>152m-175.5m</td><td>411m-475.5m</td><td>683m-741m</td></tr>
-            <tr><td>Titanic Candycane Rock</td><td>112.5m-130m</td><td>223.4m-276m</td><td>309.5m-357.5m</td><td>152m-175.5m</td><td>411m-475.5m</td><td>683m-741m</td></tr>
-        </tbody>
-    </table>
+    <div id="titanic" class="section-content">
+        <h2>2. Titanic Pets</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pet Name</th>
+                    <th>Normal</th>
+                    <th>Golden</th>
+                    <th>Rainbow</th>
+                    <th>Shiny Normal</th>
+                    <th>Shiny Golden</th>
+                    <th>Shiny Rainbow</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Titanic Cupcake</td><td>42m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
+                <tr><td>Titanic Blue Lucky Block</td><td>29m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
+                <tr><td>Titanic Vapor Dragon</td><td>40m-55m</td><td>N/A</td><td>92m-127m</td><td>52m-72m</td><td>N/A</td><td>136m-187m</td></tr>
+            </tbody>
+        </table>
+    </div>
 
-    <!-- 3. GARGANTUAN PETS -->
-    <h2 id="gargantuan">3. Gargantuan Pets</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Pet Name</th>
-                <th>Normal</th>
-                <th>Golden</th>
-                <th>Rainbow</th>
-                <th>Shiny Normal</th>
-                <th>Shiny Golden</th>
-                <th>Shiny Rainbow</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr><td>Gargantuan Blue Lucky Block</td><td>52.5m-60m</td><td>N/A</td><td>200m-250m</td><td>95m-110m</td><td>N/A</td><td>420m-520m</td></tr>
-            <tr><td>Gargantuan Vapor Phoenix</td><td>192.5m-253m</td><td>N/A</td><td>443.3m-581.9m</td><td>250.8m-328.9m</td><td>N/A</td><td>654.5m-860.2m</td></tr>
-            <tr><td>Gargantuan Super Cat</td><td>66m-82.5m</td><td>N/A</td><td>297m-346.5m</td><td>115.5m-176m</td><td>N/A</td><td>797.5m-990m</td></tr>
-            <tr><td>Garg Royal Beast</td><td>79.2m-93.5m</td><td>N/A</td><td>231m-286m</td><td>106.7m-126.5m</td><td>N/A</td><td>484m-594m</td></tr>
-            <tr><td>Gargantuan Black Blocky</td><td>60.5m-77m</td><td>N/A</td><td>247.5m-308m</td><td>88m-137.5m</td><td>N/A</td><td>715m-880m</td></tr>
-            <tr><td>Gargantuan Ghoul Horse</td><td>105.6m-120m</td><td>204m-240m</td><td>290.4m-330m</td><td>142.8m-162m</td><td>385.2m-438m</td><td>602.4m-684m</td></tr>
-            <tr><td>Gargantuan Skelemelon</td><td>101.2m-115.5m</td><td>198m-231m</td><td>278.3m-317.9m</td><td>136.4m-156.2m</td><td>369.6m-421.3m</td><td>576.4m-658.9m</td></tr>
-            <tr><td>Gargantuan Evil Scarecrow Pumpkin</td><td>104.5m-118.8m</td><td>209m-242m</td><td>287.1m-326.7m</td><td>140.8m-160.6m</td><td>381.7m-433.4m</td><td>596.2m-677.6m</td></tr>
-            <tr><td>Gargantuan Empyrean Dominus</td><td>82.5m-96.8m</td><td>176m-203.5m</td><td>226.6m-266.2m</td><td>111.1m-130.9m</td><td>301.4m-353.1m</td><td>470.8m-552.2m</td></tr>
-            <tr><td>Gargantuan 1x1x1x1</td><td>85.8m-101.2m</td><td>181.5m-209m</td><td>236.5m-278.3m</td><td>115.5m-136.4m</td><td>313.5m-369.6m</td><td>489.5m-576.4m</td></tr>
-            <tr><td>Gargantuan Hellish Axolotl</td><td>90.2m-105.6m</td><td>187m-214.5m</td><td>248.6m-290.4m</td><td>122.1m-143m</td><td>328.9m-385m</td><td>513.7m-601.7m</td></tr>
-            <tr><td>Gargantuan Angelus</td><td>127.4m-143m</td><td>260m-299m</td><td>351m-393.9m</td><td>171.6m-193.7m</td><td>465.4m-522.6m</td><td>726.7m-815.1m</td></tr>
-            <tr><td>Gargantuan Cat</td><td>1b</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Gargantuan Diamond Dragon</td><td>450m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Gargantuan Chroma Balloon Axolotl</td><td>87.1m-102.9m</td><td>N/A</td><td>254.1m-314.6m</td><td>117.4m-139.2m</td><td>N/A</td><td>532.4m-653.4m</td></tr>
-            <tr><td>Gargantuan Samurai Kitsune</td><td>130m-175m</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td></tr>
-            <tr><td>Gargantuan Googly Agony</td><td>83.2m-98.2m</td><td>N/A</td><td>242.6m-300.3m</td><td>112.0m-132.8m</td><td>N/A</td><td>508.2m-623.7m</td></tr>
-            <tr><td>Gargantuan Clown Cat</td><td>132m-158m</td><td>240m-275m</td><td>310m-345m</td><td>168m-204m</td><td>415m-480m</td><td>685m-750m</td></tr>
-            <tr><td>Gargantuan Snowflake Dragon</td><td>179.5m-193.8m</td><td>284m-317m</td><td>362.1m-401.7m</td><td>215.8m-235.6m</td><td>456.7m-508.4m</td><td>651.4m-733.9m</td></tr>
-        </tbody>
-    </table>
+    <div id="gargantuan" class="section-content">
+        <h2>3. Gargantuan Pets</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pet Name</th>
+                    <th>Normal</th>
+                    <th>Golden</th>
+                    <th>Rainbow</th>
+                    <th>Shiny Normal</th>
+                    <th>Shiny Golden</th>
+                    <th>Shiny Rainbow</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Gargantuan Blue Lucky Block</td><td>52.5m-60m</td><td>N/A</td><td>200m-250m</td><td>95m-110m</td><td>N/A</td><td>420m-520m</td></tr>
+                <tr><td>Gargantuan Vapor Phoenix</td><td>192.5m-253m</td><td>N/A</td><td>443.3m-581.9m</td><td>250.8m-328.9m</td><td>N/A</td><td>654.5m-860.2m</td></tr>
+            </tbody>
+        </table>
+    </div>
 
-    <!-- 4. CHEST EGG PETS -->
-    <h2 id="chest">4. Chest Egg Pets</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Pet Name</th>
-                <th>Normal</th>
-                <th>Golden</th>
-                <th>Rainbow</th>
-                <th>Shiny Normal</th>
-                <th>Shiny Golden</th>
-                <th>Shiny Rainbow</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr><td>Huge Mimic Tech Chest</td><td>5.5m-7.5m</td><td>9.5m-13m</td><td>14.5m-19.5m</td><td>7.2m-9.8m</td><td>12.5m-17m</td><td>21m-28.5m</td></tr>
-            <tr><td>Titanic Mimic Tech Chest</td><td>62m-75m</td><td>125m-155m</td><td>165m-205m</td><td>82m-100m</td><td>185m-230m</td><td>290m-360m</td></tr>
-            <tr><td>Huge Steampunk Bat</td><td>4.5m-6.5m</td><td>7.5m-11m</td><td>12m-17m</td><td>6m-8.5m</td><td>10.5m-14.5m</td><td>18m-25m</td></tr>
-            <tr><td>Titanic Steampunk Fish</td><td>58m-72m</td><td>115m-145m</td><td>155m-195m</td><td>78m-95m</td><td>175m-215m</td><td>270m-340m</td></tr>
-            <tr><td>Huge Alien Axolotl</td><td>6m-8.5m</td><td>10m-14.5m</td><td>16m-22m</td><td>8m-11m</td><td>14m-19.5m</td><td>24m-33m</td></tr>
-            <tr><td>Titanic Jelly Alien</td><td>65m-80m</td><td>130m-165m</td><td>175m-215m</td><td>88m-108m</td><td>195m-250m</td><td>310m-385m</td></tr>
-            <tr><td>Huge Axolotl</td><td>4m-6m</td><td>7m-10.5m</td><td>11m-16m</td><td>5.5m-8m</td><td>9.5m-13.5m</td><td>16.5m-23m</td></tr>
-            <tr><td>Titanic Axolotl</td><td>55m-70m</td><td>110m-140m</td><td>145m-185m</td><td>75m-95m</td><td>165m-210m</td><td>255m-320m</td></tr>
-            <tr><td>Huge Pixel M-2 PROTOTYPE</td><td>5m-7m</td><td>8.5m-12m</td><td>13.5m-18.5m</td><td>6.5m-9.2m</td><td>11.5m-16m</td><td>20m-27m</td></tr>
-            <tr><td>Titanic Pixel Angelus</td><td>60m-78m</td><td>120m-160m</td><td>160m-210m</td><td>80m-105m</td><td>180m-240m</td><td>285m-370m</td></tr>
-            <tr><td>Huge Helicopter Cat</td><td>6.12m-8.67m</td><td>10.2m-14.8m</td><td>16.3m-22.4m</td><td>8.16m-11.2m</td><td>14.3m-19.9m</td><td>24.5m-33.7m</td></tr>
-            <tr><td>Titanic Rich Cat</td><td>66.3m-81.6m</td><td>132.6m-168.3m</td><td>178.5m-219.3m</td><td>89.8m-110.2m</td><td>198.9m-255m</td><td>316.2m-392.7m</td></tr>
-            <tr><td>Gargantuan Black Balloon Cat</td><td>133.8m-150.2m</td><td>273m-314m</td><td>368.6m-413.6m</td><td>180.2m-203.4m</td><td>488.7m-548.7m</td><td>763.0m-855.9m</td></tr>
-            <tr><td>Huge Festival Carnival</td><td>5.4m-7.65m</td><td>9m-13.05m</td><td>14.4m-19.8m</td><td>7.2m-9.9m</td><td>12.6m-17.55m</td><td>21.6m-29.7m</td></tr>
-            <tr><td>Titanic Santa Paws</td><td>58.5m-72m</td><td>117m-148.5m</td><td>157.5m-193.5m</td><td>79.2m-97.2m</td><td>175.5m-225m</td><td>279m-346.5m</td></tr>
-            <tr><td>Gargantuan Rudolf</td><td>114.7m-128.7m</td><td>234m-269.1m</td><td>315.9m-354.5m</td><td>154.4m-174.3m</td><td>418.9m-470.3m</td><td>654m-733.6m</td></tr>
-        </tbody>
-    </table>
+    <div id="chest" class="section-content">
+        <h2>4. Chest Egg Pets</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pet Name</th>
+                    <th>Normal</th>
+                    <th>Golden</th>
+                    <th>Rainbow</th>
+                    <th>Shiny Normal</th>
+                    <th>Shiny Golden</th>
+                    <th>Shiny Rainbow</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Huge Mimic Tech Chest</td><td>5.5m-7.5m</td><td>9.5m-13m</td><td>14.5m-19.5m</td><td>7.2m-9.8m</td><td>12.5m-17m</td><td>21m-28.5m</td></tr>
+            </tbody>
+        </table>
+    </div>
 
-    <!-- 5. EXCLUSIVE EGGS -->
-    <h2 id="exclusive">5. Exclusive Eggs</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Egg Name</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr><td>Huge Machine Egg 2</td><td>2.5m</td></tr>
-        </tbody>
-    </table>
+    <div id="exclusive" class="section-content">
+        <h2>5. Exclusive Eggs</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Egg Name</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Huge Machine Egg 2</td><td>2.5m</td></tr>
+            </tbody>
+        </table>
+    </div>
 
-    <!-- Скрипты для работы меню и поиска -->
     <script>
         function toggleMenu() {
             const sidebar = document.getElementById("mySidebar");
@@ -430,11 +271,35 @@
             }
         }
 
+        function showSection(sectionId) {
+            // Скрываем все разделы и главный экран
+            document.getElementById("home").style.display = "none";
+            document.getElementById("searchBox").style.display = "none";
+            
+            const sections = document.querySelectorAll(".section-content");
+            sections.forEach(sec => sec.style.display = "none");
+
+            // Если выбрана главная
+            if (sectionId === "home") {
+                document.getElementById("home").style.display = "flex";
+            } else {
+                // Показываем нужный раздел и поиск
+                document.getElementById(sectionId).style.display = "block";
+                document.getElementById("searchBox").style.display = "block";
+            }
+
+            // Закрываем меню после клика
+            toggleMenu();
+        }
+
         function filterTable() {
             const input = document.getElementById("searchInput");
             const filter = input.value.toLowerCase();
-            const tables = document.querySelectorAll("table");
+            const activeSection = document.querySelector('.section-content[style*="block"]');
+            
+            if (!activeSection) return;
 
+            const tables = activeSection.querySelectorAll("table");
             tables.forEach(table => {
                 const rows = table.getElementsByTagName("tr");
                 for (let i = 1; i < rows.length; i++) {
