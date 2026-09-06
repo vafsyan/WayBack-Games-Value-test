@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,6 @@
             padding: 20px;
         }
 
-        /* Кнопка меню */
         .menu-btn {
             position: fixed;
             top: 20px;
@@ -28,7 +27,6 @@
             z-index: 1001;
         }
 
-        /* Боковое меню */
         .sidebar {
             height: 100%;
             width: 250px;
@@ -64,7 +62,6 @@
             z-index: 999;
         }
 
-        /* Главный экран */
         .home-screen {
             display: flex;
             flex-direction: column;
@@ -86,7 +83,6 @@
             font-size: 1.2rem;
         }
 
-        /* Секции с таблицами (по умолчанию скрыты) */
         .section-content {
             display: none;
             margin-top: 20px;
@@ -137,7 +133,7 @@
     <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
 
     <div id="mySidebar" class="sidebar">
-        <a onclick="showSection('home')">🏠 Главная</a>
+        <a onclick="showSection('home')">Home</a>
         <a onclick="showSection('huge')">Huge Pets</a>
         <a onclick="showSection('titanic')">Titanic Pets</a>
         <a onclick="showSection('gargantuan')">Gargantuan Pets</a>
@@ -149,11 +145,11 @@
         <h1 class="site-title">
             <span class="wayback">WayBack</span> <span class="games">Games</span>
         </h1>
-        <p class="home-subtitle">Value List — откройте меню слева (☰), чтобы выбрать категорию питомцев</p>
+        <p class="home-subtitle">Value List - open the menu on the left to select a pet category</p>
     </div>
 
     <div id="searchBox" class="search-container" style="display: none;">
-        <input type="text" id="searchInput" placeholder="Поиск питомца..." onkeyup="filterTable()">
+        <input type="text" id="searchInput" placeholder="Search pet..." onkeyup="filterTable()">
     </div>
 
     <div id="huge" class="section-content">
@@ -272,23 +268,19 @@
         }
 
         function showSection(sectionId) {
-            // Скрываем все разделы и главный экран
             document.getElementById("home").style.display = "none";
             document.getElementById("searchBox").style.display = "none";
             
             const sections = document.querySelectorAll(".section-content");
             sections.forEach(sec => sec.style.display = "none");
 
-            // Если выбрана главная
             if (sectionId === "home") {
                 document.getElementById("home").style.display = "flex";
             } else {
-                // Показываем нужный раздел и поиск
                 document.getElementById(sectionId).style.display = "block";
                 document.getElementById("searchBox").style.display = "block";
             }
 
-            // Закрываем меню после клика
             toggleMenu();
         }
 
